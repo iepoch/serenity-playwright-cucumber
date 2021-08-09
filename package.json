@@ -14,8 +14,12 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "postinstall": "serenity-bdd update",
+    "test": "failsafe test:clean test:run test:report",
+    "test:clean": "rimraf target/site/serenity",
+    "test:run": "cucumber-js e2e-cuk -r e2e-cuk/features --format @serenity-js/cucumber --require ./e2e-cuk/features/support/config.js --require ./e2e-cuk/features/step-definitions/given.js",
+    "test:report": "serenity-bdd run",
+    "test:cuk": "cucumber-js e2e-cuk -r e2e-cuk/features"
   },
   "eslintConfig": {
     "extends": [
@@ -34,5 +38,18 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@cucumber/cucumber": "^7.3.1",
+    "@playwright/test": "^1.13.1",
+    "@serenity-js/core": "^2.30.0",
+    "@serenity-js/cucumber": "^2.30.0",
+    "@serenity-js/serenity-bdd": "^2.30.0",
+    "chai": "^4.3.4",
+    "chia": "^0.0.1",
+    "chromedriver": "^92.0.1",
+    "npm-failsafe": "^0.4.3",
+    "playwright": "^1.13.1",
+    "rimraf": "^3.0.2"
   }
 }
